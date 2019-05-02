@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(E_ALL); 
 ini_set('display_errors',1); 
 
@@ -6,8 +6,8 @@ include('check.php');
 
 
 $databaseName = 'userdb';
-$databaseUser = 'MySQL 계정이름';
-$databasePassword = '패스워드';
+$databaseUser = 'lee';
+$databasePassword = 'qwer123';
 
 
 /*
