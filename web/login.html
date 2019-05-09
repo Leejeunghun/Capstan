@@ -1,23 +1,24 @@
-!DOCTYPE html
-html
-    head
-        meta http-equiv=Content-Type content=texthtml; utf-8
-        title로그인 페이지title
-        style
-            th,td{
-                    width 50px;
-            }
-            table,th,td{
-                border 1px solid black;
-                border-collapse collapse;
-            }
-        style
-    head
-    body
-  form action=8-2.php
-      p비밀번호를 입력해주세요.p
-      input type=text name=password
-      input type=submit
-  form
-body
-html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>login page</title>
+  </head>
+  <body>
+    <form method="post" action="./login_check.php">
+      <div>
+        <label for="id">ID</label>
+        <input type="text" name="id"/>
+        </div>
+        <div>
+          <label for="pw">PW</label>
+          <input type="text" name="pw"/>
+        </div>
+
+        <div class="button">
+          <button type="submit">login</button>
+        </div>
+        </form>
+        <button onclick="location.href='signUp.html'">sign up</button>
+  </body>
+</html>
