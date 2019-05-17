@@ -1,0 +1,33 @@
+Bitnami인데
+
+서 Apache, PHP, MySQL을 한번에 설치하는것을 말한다
+윈도우에서 실행하기 떄문에
+WAMP라고 한다.
+
+설치시 다른 framework들은 설치안한다.
+
+데이터 베이스의 비번은
+qwer123이다.
+
+1.goto application은 비트나민을 통해서 설치할 웹페이지이다. 
+2.open php myadmin을데이터 베이스 제어
+
+사용자명 root
+비번은 qwer123
+여기서 데이터 베이스 처리 가능 
+
+3.open aplication folder는 설치 경로를 표여준다.
+ 
+4.manage server는  서버의 환경을 조절한다.
+
+5. Application logo는 시스템에서 일어나는 문제점과 상황들을 보여준다.
+
+서버 클라이언트에서
+웹브라우저를 통해서 사용자가 서버에서 요청하면 Apache에 요청한 웹서버는
+사용자가 요청한 파일 PHPinfo.php를 사용자가 요청을 했다면
+도메인/phpinfo.php로 요청을한다
+
+서버에 어디에 있는지는 apache 설정되어있다.
+
+conf는설정과 관련된 디렉토리이다.
+httpd.conf는 

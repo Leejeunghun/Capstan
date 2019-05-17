@@ -8,11 +8,11 @@ $check_insert =0;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-    $memberId = $_POST['Start_time'];
-    $memberPw = $_POST['End_time'];
+    $Save_start = $_POST['Start_time'];
+    $Save_End = $_POST['End_time'];
 // 입력 테스트 
-$str_now = strtotime($memberId);
-$str_target = strtotime($memberPw);
+$str_now = strtotime($Save_start);
+$str_target = strtotime($Save_End);
 if($str_now > $str_target) {
 echo "예약이 잘못 되었습니다. 시작일 보다 끝이 더 빠릅니다";
 } 
@@ -32,7 +32,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        if($memberId>=$row[Start_time] && $memberId<=$row[End_time])
+        if($Save_start>=$row[Start_time] && $Save_start<=$row[End_time])
         {
             echo "해당 시간에 사용 불가능  ";
                   $check_insert=1;
@@ -40,6 +40,7 @@ if ($result->num_rows > 0) {
         }
         else
         {
+            echo "사용 가능";
         }
         
     }
@@ -49,7 +50,7 @@ else {
 }
 if($check_insert ==0)
 {
-    $sql = "INSERT INTO time_table VALUES('{$memberId}','{$memberPw}')"; 
+    $sql = "INSERT INTO time_table VALUES('{$Save_start}','{$Save_End}')"; 
     if ($conn->query($sql) === TRUE)
     {
       echo "New record created successfully";
