@@ -1,5 +1,6 @@
 
 <?php
+
 $servername = "localhost";
 $username = "root";
 $password = "qwer123";
@@ -8,9 +9,18 @@ $check_insert =0;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-    $Save_start = $_POST['Start_time'];
-    $Save_End = $_POST['End_time'];
+    $Save_start = $_POST['Start_day'];
+    $Save_End = $_POST['End_day'];
+    $Save_time_start= $_POST['Start_hour'];
+    $Save_time_End= $_POST['End_hour'];
+echo $Save_start;
+echo $Save_time_start;
+
+//echo $Save_End_1;
+//echo $Save_time_End;
+
 // 입력 테스트 
+
 $str_now = strtotime($Save_start);
 $str_target = strtotime($Save_End);
 if($str_now > $str_target) {
@@ -23,20 +33,24 @@ else {
 echo "예약 가능 \n";
 $time_check = "SELECT Start_time,End_time FROM time_table";
 $result = $conn->query($time_check);
-
-
-
 $sql = "SELECT Start_time,End_time FROM time_table";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        if($Save_start>=$row[Start_time] && $Save_start<=$row[End_time])
+        if($Save_start>$row[Start_time] && $Save_start<$row[End_time])
         {
             echo "해당 시간에 사용 불가능  ";
-                  $check_insert=1;
-        
+            $check_insert=1;
+        }
+        elseif($Save_start==$Save_End)
+        {
+            if($Save_time_start>$Save_time_End)
+            {
+                $check_insert=1;
+            echo "해당 시간에 사용 불가능  ";
+            } 
         }
         else
         {
@@ -50,7 +64,7 @@ else {
 }
 if($check_insert ==0)
 {
-    $sql = "INSERT INTO time_table VALUES('{$Save_start}','{$Save_End}')"; 
+    $sql = "INSERT INTO time_table VALUES('{$Save_start}','{$Save_End}','{$Save_time_start}','{$Save_time_End}','{$Save_user}')"; 
     if ($conn->query($sql) === TRUE)
     {
       echo "New record created successfully";

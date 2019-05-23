@@ -13,15 +13,23 @@
         <h1 class="title">시간을 입력해 주세요.</h1>
         <form name="check_table" action="./check_table.php" method="post" onsubmit="return checkSubmit()">
             <div class="line">
+                <p>예약자명  </p>
+                <div class="input  Area">
+                    <input type="char" name="name" class="name" />
+                </div>
+            </div>
+            <div class="line">
                 <p>시작 날짜 </p>
                 <div class="input  Area">
-                    <input type="datetime" name="Start_time" class="Start_time" />
+                    <input type="date" name="Start_day" class="Start_day" />
+                    <input type="time" name="Start_hour" class="Start_hour" />
                 </div>
             </div>
             <div class="line">
                 <p>끝나는 날짜 </p>
-                <div class="inputArea">
-                    <input type="datetime" name="End_time" class="End_time" />
+                <div class="input  Area">
+                    <input type="date" name="End_day" class="End_day" />
+                    <input type="time" name="End_hour" class="End_hour" />
                 </div>
             </div>
             <div class="line">
