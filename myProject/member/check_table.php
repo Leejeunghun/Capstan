@@ -19,6 +19,8 @@ $str_now = strtotime($combined_input_Start);
 $str_target = strtotime($combined_input_End);
 if($str_now > $str_target) {
 echo "예약이 잘못 되었습니다. 시작일 보다 끝이 더 빠릅니다";
+$check_insert =1;
+
 } 
 else
 {
@@ -34,26 +36,21 @@ else
         $Data_merge_start  = strtotime($combined_input_Start);
         $Data_merge_End    = strtotime($combined_Save_End);
 
-        if($str_now>=$Data_merge_start && $str_target<=$Data_merge_End)
+        
+
+        if($Data_merge_start>$str_now && $Data_merge_start<$str_target)
         {
+            //시작 점에 걸리는 경우
             $check_insert =1;
-            echo "데이터 못 들어감 ";
-        }
-        else if($Data_merge_start>$str_now && $Data_merge_start<$str_target)
-        {
-            $check_insert =1;
-            echo "데이터 못 들어감 ";
+            echo "error: 2데이터 못 들어감 ";
         }
         else if($Data_merge_End>$str_now && $Data_merge_End<$str_target)
         {
+            //끝점에 걸리는경우
             $check_insert =1;
-            echo "데이터 못 들어감 ";
+            echo "error: 3데이터 못 들어감 ";
         }
-        else if($str_now>=$Data_merge_start && $str_target<=$Data_merge_End)
-        {
-            $check_insert =1;
-            echo "데이터 못 들어감 ";     
-        }
+
       }
     }
     else
