@@ -33,27 +33,22 @@ else
     while($row = $result->fetch_assoc()) {
         $combined_Save_Start = date('Y-m-d H:i:s', strtotime("$row[Start_time] $row[Start_hour]"));
         $combined_Save_End = date('Y-m-d H:i:s', strtotime("$row[End_time] $row[End_hour]"));
-        $Data_merge_start  = strtotime($combined_input_Start);
+        $Data_merge_start  = strtotime($combined_Save_Start);
         $Data_merge_End    = strtotime($combined_Save_End);
 
-        if(($Data_merge_start>=$str_now ) and ($Data_merge_start<=$str_target))
+       if($Data_merge_start>=$str_now && $Data_merge_start<=$str_target)
         {
             //시작 점에 걸리는 경우
             $check_insert =1;
             echo "error: 2데이터 못 들어감 ";
         }
-        if(($Data_merge_End>=$str_now)and($Data_merge_End<=$str_target))
+        else if($Data_merge_End>$str_now && $Data_merge_End<$str_target)
         {
             //끝점에 걸리는경우
             $check_insert =1;
             echo "error: 3데이터 못 들어감 ";
         }
-        if(($Data_merge_start<=$str_now)and($Data_merge_End>=$str_target))
-        {
-            $check_insert =1;
-            echo "error: 4데이터 못 들어감 ";
 
-        }
       }
     }
     else
@@ -63,7 +58,7 @@ else
 }
 if($check_insert ==0)
 {
-
+    echo "check";
     $sql = "SELECT Start_time,End_time FROM time_table";
     $result = $conn->query($sql);
     $sql = "INSERT INTO time_table VALUES('{$Save_start}','{$Save_End}','{$Save_time_start}','{$Save_time_End}','{$Save_user}')"; 
