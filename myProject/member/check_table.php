@@ -49,6 +49,11 @@ else
             $check_insert =1;
             echo "데이터 못 들어감 ";
         }
+        else if($str_now>=$Data_merge_start && $str_target<=$Data_merge_End)
+        {
+            $check_insert =1;
+            echo "데이터 못 들어감 ";     
+        }
       }
     }
     else
