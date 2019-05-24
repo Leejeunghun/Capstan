@@ -1,69 +1,66 @@
-
 <?php
-
 $servername = "localhost";
 $username = "root";
 $password = "qwer123";
 $dbname = "time_table";
 $check_insert =0;
-
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
     $Save_start = $_POST['Start_day'];
     $Save_End = $_POST['End_day'];
     $Save_time_start= $_POST['Start_hour'];
     $Save_time_End= $_POST['End_hour'];
-echo $Save_start;
-echo $Save_time_start;
+// 데이터 합치기 
+$combined_input_Start = date('Y-m-d H:i:s', strtotime("$Save_start $Save_time_start"));
+$combined_input_End = date('Y-m-d H:i:s', strtotime("$Save_End $Save_time_End"));
 
-//echo $Save_End_1;
-//echo $Save_time_End;
-
-// 입력 테스트 
-
-$str_now = strtotime($Save_start);
-$str_target = strtotime($Save_End);
+// 데이터 비교하기 위한 정수화 
+$str_now = strtotime($combined_input_Start);
+$str_target = strtotime($combined_input_End);
 if($str_now > $str_target) {
 echo "예약이 잘못 되었습니다. 시작일 보다 끝이 더 빠릅니다";
 } 
-elseif($str_now == $str_target) {
-echo "예약 할수 없습니다.\n ";
-} 
-else {
-echo "예약 가능 \n";
-$time_check = "SELECT Start_time,End_time FROM time_table";
-$result = $conn->query($time_check);
-$sql = "SELECT Start_time,End_time FROM time_table";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
+else
+{
+    echo "예약 가능 \n";
+    $time_check = "SELECT Start_time,End_time,Start_hour, End_hour FROM time_table";
+    $result = $conn->query($time_check);
+    if ($result->num_rows > 0)
+     {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        if($Save_start>$row[Start_time] && $Save_start<$row[End_time])
+        $combined_Save_Start = date('Y-m-d H:i:s', strtotime("$row[Start_time] $row[Start_hour]"));
+        $combined_Save_End = date('Y-m-d H:i:s', strtotime("$row[End_time] $row[End_hour]"));
+        $Data_merge_start  = strtotime($combined_input_Start);
+        $Data_merge_End    = strtotime($combined_Save_End);
+
+        if($str_now>=$Data_merge_start && $str_target<=$Data_merge_End)
         {
-            echo "해당 시간에 사용 불가능  ";
-            $check_insert=1;
+            $check_insert =1;
+            echo "데이터 못 들어감 ";
         }
-        elseif($Save_start==$Save_End)
+        else if($Data_merge_start>$str_now && $Data_merge_start<$str_target)
         {
-            if($Save_time_start>$Save_time_End)
-            {
-                $check_insert=1;
-            echo "해당 시간에 사용 불가능  ";
-            } 
+            $check_insert =1;
+            echo "데이터 못 들어감 ";
         }
-        else
+        else if($Data_merge_End>$str_now && $Data_merge_End<$str_target)
         {
-            echo "사용 가능";
+            $check_insert =1;
+            echo "데이터 못 들어감 ";
         }
-        
+      }
     }
-} 
-else {
-    echo "0 results";
+    else
+    {
+
+    }
 }
 if($check_insert ==0)
 {
+    echo "check";
+    $sql = "SELECT Start_time,End_time FROM time_table";
+    $result = $conn->query($sql);
     $sql = "INSERT INTO time_table VALUES('{$Save_start}','{$Save_End}','{$Save_time_start}','{$Save_time_End}','{$Save_user}')"; 
     if ($conn->query($sql) === TRUE)
     {
@@ -74,13 +71,5 @@ if($check_insert ==0)
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-}
-
-
-
 $conn->close();
 ?>
