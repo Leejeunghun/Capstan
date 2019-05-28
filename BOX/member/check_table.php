@@ -5,7 +5,7 @@
 <?php
 $servername = "localhost";
 $username = "esebird";
-$password = "qwer123";
+$password = "qwer123!";
 $dbname = "esebird";
 $check_insert =0;
 // Create connection
@@ -76,7 +76,7 @@ if($check_insert ==0)
     }
     else
     {
-       echo "<script>alert(\""Error: " . $sql . "<br>" . $conn->error;"\");</script>";  
+       echo "<script>alert(\"Error: \");</script>";  
        echo "<meta http-equiv='refresh' content='0; url=./main2.php'>"; 
     }
 }

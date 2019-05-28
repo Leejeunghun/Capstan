@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <head>
@@ -22,7 +21,7 @@
         <a class="nav-link" href="#">예약 취소</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">나의 예약 현황</a>
+        <a class="nav-link" href="./myres.php">나의 예약 현황</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">My page</a>
@@ -36,37 +35,43 @@
 
   </div>
 </nav>
-</header>
-
-<?php
-    include "../include/session.php";
-    include "../include/dbConnect.php";
-    $memberId = $_COOKIE["cookie"];
-
-$sql = "SELECT * FROM time_table WHERE memberId = '{$memberId}'";
-$res = $dbConnect->query($sql);
-$row = $res->fetch_array(MYSQLI_ASSOC);
-
-$col = 3;
-$row_index=0;
-echo "<table>";
-
-while($row_index < $row){
-  echo "<tr>";
-  $col_index= 0;
-  while($col_index < $col)
-  {
-    echo "<td>$row_index</td>";
-    $col_index = $col_index +1;
+<style>
+  table {
+    width: 100%;
+    border: 1px solid #444444;
   }
-  echo "<tr>";
-  $row_index = $row_index + 1;
-}
-echo "</table>";
+  th, td {
+    border: 1px solid #444444;
+  }
+</style>
+<?php
+$servername = "localhost";
+$username = "esebird";
+$password = "qwer123!";
+$dbname = "esebird";
+$check_insert =0;
+$memberId = $_COOKIE["cookie"];
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+    $time_check = "SELECT Start_time,End_time,Start_hour, End_hour,User FROM time_table";
+    $result = $conn->query($time_check);
+    echo "<table>";
+    if ($result->num_rows > 0)
+     {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        if( $row[User]==$memberId)
+        {
+        $combined_Save_Start = date('Y-m-d H:i:s', strtotime("$row[Start_time] $row[Start_hour]"));
+        $combined_Save_End = date('Y-m-d H:i:s', strtotime("$row[End_time] $row[End_hour]"));
+         echo "<tr><td> $combined_Save_Start</td><td> $combined_Save_End <td> 삭제 </td></tr>";
+        }
+      }
+    }
+    echo "</table>";
+
+
+$conn->close();
 ?>
-
-
-
-   <img src="http://www.heerim.com/assets/attach/project/%C0%CE%C3%B5%B4%EB%BC%DB%B5%B5%C4%B7%C6%DB%BD%BA_1920%20%283%29.jpg" alt="INU" height="655px" width="1535px">
-</body>
+</head>
 </html>
