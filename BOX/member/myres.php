@@ -64,7 +64,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
         {
         $combined_Save_Start = date('Y-m-d H:i:s', strtotime("$row[Start_time] $row[Start_hour]"));
         $combined_Save_End = date('Y-m-d H:i:s', strtotime("$row[End_time] $row[End_hour]"));
-         echo "<tr><td> $combined_Save_Start</td><td> $combined_Save_End <td> 삭제 </td></tr>";
+        echo '<tr><td> $combined_Save_Start</td><td> $combined_Save_End';
+        echo '<td><input type="button" value="Click Me"/> </td></tr>';
         }
       }
     }
