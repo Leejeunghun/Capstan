@@ -60,11 +60,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
      {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        if( $row[User]==$memberId)
+        {
         $combined_Save_Start = date('Y-m-d H:i:s', strtotime("$row[Start_time] $row[Start_hour]"));
         $combined_Save_End = date('Y-m-d H:i:s', strtotime("$row[End_time] $row[End_hour]"));
-        echo '<tr><td> $combined_Save_Start</td><td> $combined_Save_End';
-        echo '<td><input type="button" value="Click Me"/> </td></tr>';
-        
+        echo "<tr><td> $combined_Save_Start</td><td> $combined_Save_End"</td>;
+        echo "<tr><td> $combined_Save_Start</td><td> $combined_Save_End"</td>;
+        echo "<td> $User </td>"
+        }
       }
     }
     echo "</table>";

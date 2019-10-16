@@ -22,6 +22,9 @@
         <a class="nav-link" href="#">예약 취소</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="./reserve.php">사용 현황 </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="./myres.php">나의 예약 현황</a>
       </li>
       <li class="nav-item">

@@ -55,16 +55,17 @@ $memberId = $_COOKIE["cookie"];
 $conn = new mysqli($servername, $username, $password, $dbname);
     $time_check = "SELECT Start_time,End_time,Start_hour, End_hour,User FROM time_table";
     $result = $conn->query($time_check);
+
     echo "<table>";
     if ($result->num_rows > 0)
      {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $combined_Save_Start = date('Y-m-d H:i:s', strtotime("$row[Start_time] $row[Start_hour]"));
-        $combined_Save_End = date('Y-m-d H:i:s', strtotime("$row[End_time] $row[End_hour]"));
-        echo '<tr><td> $combined_Save_Start</td><td> $combined_Save_End';
-        echo '<td><input type="button" value="Click Me"/> </td></tr>';
-        
+      while($row = $result->fetch_assoc()) { 
+        $combined_Save_Start = date("Y-m-d H:i:s", strtotime("$row[Start_time] $row[Start_hour]"));
+        $combined_Save_End = date("Y-m-d H:i:s", strtotime("$row[End_time] $row[End_hour]"));
+        $name= $row[User];
+        echo "<tr><td> {$combined_Save_Start} </td><td> {$combined_Save_End}";
+        echo "<td> $row[User] </td>";
       }
     }
     echo "</table>";
