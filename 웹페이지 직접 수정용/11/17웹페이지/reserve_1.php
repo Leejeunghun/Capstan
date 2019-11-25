@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <head>
@@ -18,10 +17,6 @@
       <li class="nav-item active">
         <a class="nav-link" href="./time_storage.php">예약 신청 <span class="sr-only">(current)</span></a>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="./reserve.php">사용 현황 </a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" href="./myres.php">나의 예약 현황</a>
       </li>
@@ -37,7 +32,42 @@
 
   </div>
 </nav>
-</header>
-   <img src="http://www.heerim.com/assets/attach/project/%C0%CE%C3%B5%B4%EB%BC%DB%B5%B5%C4%B7%C6%DB%BD%BA_1920%20%283%29.jpg" alt="INU" height="655px" width="1535px">
-</body>
+<style>
+  table {
+    width: 100%;
+    border: 1px solid #444444;
+  }
+  th, td {
+    border: 1px solid #444444;
+  }
+</style>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "qwer123";
+$dbname = "esebird";
+$check_insert =0;
+$memberId = $_COOKIE["cookie"];
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+    $time_check = "SELECT * FROM item";
+    $result = $conn->query($time_check);
+    echo "<table>";
+    echo "<tr><td> 사용자 </td><td> 사용상태 </td><td>시간</td> </tr>";
+    if ($result->num_rows > 0)
+     {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        if( $row[User]==$memberId)
+        {
+        echo "<tr><td> $row[User]</td><td> $row[Door_status]</td> <td>$row[time] </td> </tr>";
+        }
+      }
+    }
+    echo "</table>";
+
+
+$conn->close();
+?>
+</head>
 </html>

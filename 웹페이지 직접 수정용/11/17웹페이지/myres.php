@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <head>
@@ -18,9 +17,8 @@
       <li class="nav-item active">
         <a class="nav-link" href="./time_storage.php">예약 신청 <span class="sr-only">(current)</span></a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link" href="./reserve.php">사용 현황 </a>
+        <a class="nav-link" href="#">예약 취소</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="./myres.php">나의 예약 현황</a>
@@ -37,7 +35,43 @@
 
   </div>
 </nav>
-</header>
-   <img src="http://www.heerim.com/assets/attach/project/%C0%CE%C3%B5%B4%EB%BC%DB%B5%B5%C4%B7%C6%DB%BD%BA_1920%20%283%29.jpg" alt="INU" height="655px" width="1535px">
-</body>
+<style>
+  table {
+    width: 100%;
+    border: 1px solid #444444;
+  }
+  th, td {
+    border: 1px solid #444444;
+  }
+</style>
+<?php
+$servername = "localhost";
+$username = "esebird";
+$password = "qwer123!";
+$dbname = "esebird";
+$check_insert =0;
+$memberId = $_COOKIE["cookie"];
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+    $time_check = "SELECT Start_time,End_time,Start_hour, End_hour,User FROM time_table";
+    $result = $conn->query($time_check);
+
+    echo "<table>";
+    if ($result->num_rows > 0)
+     {
+    // output data of each row
+      while($row = $result->fetch_assoc()) { 
+        $combined_Save_Start = date("Y-m-d H:i:s", strtotime("$row[Start_time] $row[Start_hour]"));
+        $combined_Save_End = date("Y-m-d H:i:s", strtotime("$row[End_time] $row[End_hour]"));
+        $name= $row[User];
+        echo "<tr><td> {$combined_Save_Start} </td><td> {$combined_Save_End}";
+        echo "<td> $row[User] </td>";
+      }
+    }
+    echo "</table>";
+
+
+$conn->close();
+?>
+</head>
 </html>
